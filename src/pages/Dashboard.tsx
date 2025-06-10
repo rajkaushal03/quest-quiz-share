@@ -1,13 +1,21 @@
-
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Plus, Eye, BarChart3, Share } from 'lucide-react';
 import { Link, Navigate } from 'react-router-dom';
-import { supabase, Quiz } from '@/lib/supabase';
+import { supabase } from '@/integrations/supabase/client';
 import { User } from '@supabase/supabase-js';
 import Navbar from '@/components/Navbar';
 import { useToast } from '@/hooks/use-toast';
+
+interface Quiz {
+  id: string;
+  title: string;
+  description: string | null;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
+}
 
 const Dashboard = () => {
   const [user, setUser] = useState<User | null>(null);

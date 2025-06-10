@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button';
 import { User, LogOut } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/integrations/supabase/client';
 import { User as SupabaseUser } from '@supabase/supabase-js';
 
 interface NavbarProps {

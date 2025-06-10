@@ -1,13 +1,40 @@
-
 import { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Download } from 'lucide-react';
 import { Link, useParams, Navigate } from 'react-router-dom';
-import { supabase, Quiz, Question, Response } from '@/lib/supabase';
+import { supabase } from '@/integrations/supabase/client';
 import { User } from '@supabase/supabase-js';
 import Navbar from '@/components/Navbar';
 import { useToast } from '@/hooks/use-toast';
+
+interface Quiz {
+  id: string;
+  title: string;
+  description: string | null;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
+}
+
+interface Question {
+  id: string;
+  quiz_id: string;
+  question_text: string;
+  question_type: 'single_choice' | 'short_text';
+  options: string[] | null;
+  order_index: number;
+  created_at: string;
+}
+
+interface Response {
+  id: string;
+  quiz_id: string;
+  question_id: string;
+  answer_text: string;
+  submitted_at: string;
+  session_id: string;
+}
 
 interface ResponseWithQuestion extends Response {
   question: Question;
