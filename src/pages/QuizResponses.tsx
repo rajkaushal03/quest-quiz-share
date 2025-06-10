@@ -122,12 +122,19 @@ const QuizResponses = () => {
         }
         grouped[response.session_id].responses.push({
           ...response,
-          question: response.questions,
+          question: {
+            ...response.questions,
+            question_type: response.questions.question_type as 'single_choice' | 'short_text'
+          },
         });
       });
 
       setQuiz(quizData);
-      setQuestions(questionsData);
+      // Type assertion to ensure question_type is properly typed
+      setQuestions(questionsData.map(q => ({
+        ...q,
+        question_type: q.question_type as 'single_choice' | 'short_text'
+      })));
       setSessionResponses(Object.values(grouped));
     } catch (error: any) {
       toast({

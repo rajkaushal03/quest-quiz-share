@@ -63,7 +63,11 @@ const QuizView = () => {
       if (questionsError) throw questionsError;
 
       setQuiz(quizData);
-      setQuestions(questionsData);
+      // Type assertion to ensure question_type is properly typed
+      setQuestions(questionsData.map(q => ({
+        ...q,
+        question_type: q.question_type as 'single_choice' | 'short_text'
+      })));
     } catch (error: any) {
       toast({
         variant: "destructive",
