@@ -9,7 +9,113 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      questions: {
+        Row: {
+          created_at: string
+          id: string
+          options: string[] | null
+          order_index: number
+          question_text: string
+          question_type: string
+          quiz_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          options?: string[] | null
+          order_index?: number
+          question_text: string
+          question_type: string
+          quiz_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          options?: string[] | null
+          order_index?: number
+          question_text?: string
+          question_type?: string
+          quiz_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "questions_quiz_id_fkey"
+            columns: ["quiz_id"]
+            isOneToOne: false
+            referencedRelation: "quizzes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quizzes: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      responses: {
+        Row: {
+          answer_text: string
+          id: string
+          question_id: string
+          quiz_id: string
+          session_id: string
+          submitted_at: string
+        }
+        Insert: {
+          answer_text: string
+          id?: string
+          question_id: string
+          quiz_id: string
+          session_id: string
+          submitted_at?: string
+        }
+        Update: {
+          answer_text?: string
+          id?: string
+          question_id?: string
+          quiz_id?: string
+          session_id?: string
+          submitted_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "responses_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "questions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "responses_quiz_id_fkey"
+            columns: ["quiz_id"]
+            isOneToOne: false
+            referencedRelation: "quizzes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

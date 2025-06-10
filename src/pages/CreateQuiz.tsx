@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Plus, Trash2 } from 'lucide-react';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { supabase, Quiz, Question } from '@/lib/supabase';
+import { supabase } from '@/integrations/supabase/client';
 import { User } from '@supabase/supabase-js';
 import Navbar from '@/components/Navbar';
 import { useToast } from '@/hooks/use-toast';

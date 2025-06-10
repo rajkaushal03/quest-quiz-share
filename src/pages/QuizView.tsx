@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,6 +8,25 @@ import { useParams, Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { ArrowLeft } from 'lucide-react';
+
+interface Quiz {
+  id: string;
+  title: string;
+  description: string | null;
+  user_id: string;
+  created_at: string;
+  updated_at: string;
+}
+
+interface Question {
+  id: string;
+  quiz_id: string;
+  question_text: string;
+  question_type: 'single_choice' | 'short_text';
+  options: string[] | null;
+  order_index: number;
+  created_at: string;
+}
 
 const QuizView = () => {
   const { id } = useParams<{ id: string }>();
