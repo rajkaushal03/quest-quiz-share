@@ -134,21 +134,21 @@ const Dashboard = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex gap-2 flex-wrap">
+                  <div className="grid grid-cols-2 gap-2 mb-3">
                     <Link to={`/edit/${quiz.id}`}>
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" className="w-full">
                         <Edit className="mr-1 h-4 w-4" />
                         Edit
                       </Button>
                     </Link>
                     <Link to={`/quiz/${quiz.id}`}>
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" className="w-full">
                         <Eye className="mr-1 h-4 w-4" />
                         View
                       </Button>
                     </Link>
                     <Link to={`/quiz/${quiz.id}/responses`}>
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" className="w-full">
                         <BarChart3 className="mr-1 h-4 w-4" />
                         Responses
                       </Button>
@@ -156,13 +156,14 @@ const Dashboard = () => {
                     <Button 
                       variant="outline" 
                       size="sm"
+                      className="w-full"
                       onClick={() => copyQuizLink(quiz.id)}
                     >
                       <Share className="mr-1 h-4 w-4" />
                       Share
                     </Button>
                   </div>
-                  <p className="text-xs text-muted-foreground mt-2">
+                  <p className="text-xs text-muted-foreground">
                     Created {new Date(quiz.created_at).toLocaleDateString()}
                   </p>
                 </CardContent>
