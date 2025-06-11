@@ -99,13 +99,13 @@ const Dashboard = () => {
       <main className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="sm:text-3xl text-xl font-bold">My Dashboard</h1>
-            <p className="text-muted-foreground">Manage your quizzes and view analytics</p>
+            <h1 className="sm:text-3xl text-2xl font-bold">My Dashboard</h1>
+            <p className="text-muted-foreground sm:inline hidden">Manage your quizzes and view analytics</p>
           </div>
           <Link to="/create">
             <Button className="transition-colors duration-200 hover:bg-black hover:text-white">
               <Plus className="mr-2 h-4 w-4" />
-              Create Quiz
+              <span className='hidden sm:inline'>Create Quiz</span>
             </Button>
           </Link>
         </div>
