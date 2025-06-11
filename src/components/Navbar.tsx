@@ -1,4 +1,3 @@
-
 import { Button } from '@/components/ui/button';
 import { User, LogOut, Menu } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -35,10 +34,10 @@ const Navbar = ({ user, onAuthClick }: NavbarProps) => {
               {/* Desktop Navigation */}
               <div className="hidden md:flex items-center gap-4">
                 <Link to="/dashboard">
-                  <Button variant="ghost">Dashboard</Button>
+                  <Button variant="ghost" className='hover:underline '>Dashboard</Button>
                 </Link>
                 <Link to="/create">
-                  <Button variant="ghost">Create Quiz</Button>
+                  <Button variant="ghost" className='hover:underline '>Create Quiz</Button>
                 </Link>
                 <div className="flex items-center gap-2">
                   <User className="h-4 w-4" />
@@ -47,6 +46,7 @@ const Navbar = ({ user, onAuthClick }: NavbarProps) => {
                     variant="ghost" 
                     size="sm" 
                     onClick={handleLogout}
+                    className="transition-colors duration-200 hover:bg-black hover:text-white"
                   >
                     <LogOut className="h-4 w-4" />
                   </Button>

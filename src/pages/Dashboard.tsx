@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -97,11 +99,11 @@ const Dashboard = () => {
       <main className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold">My Dashboard</h1>
+            <h1 className="sm:text-3xl text-xl font-bold">My Dashboard</h1>
             <p className="text-muted-foreground">Manage your quizzes and view analytics</p>
           </div>
           <Link to="/create">
-            <Button>
+            <Button className="transition-colors duration-200 hover:bg-black hover:text-white">
               <Plus className="mr-2 h-4 w-4" />
               Create Quiz
             </Button>
@@ -116,7 +118,7 @@ const Dashboard = () => {
                 Create your first quiz to get started
               </p>
               <Link to="/create">
-                <Button>
+                <Button className="transition-colors duration-200 hover:bg-black hover:text-white">
                   <Plus className="mr-2 h-4 w-4" />
                   Create Your First Quiz
                 </Button>
@@ -124,9 +126,9 @@ const Dashboard = () => {
             </CardContent>
           </Card>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
             {quizzes.map((quiz) => (
-              <Card key={quiz.id}>
+              <Card key={quiz.id} className='w-full border-2 border-black '>
                 <CardHeader>
                   <CardTitle className="line-clamp-2">{quiz.title}</CardTitle>
                   <CardDescription className="line-clamp-3">
@@ -134,7 +136,7 @@ const Dashboard = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-2 gap-2 mb-3">
+                  <div className="grid md:grid-cols-4 grid-cols-2 gap-2 mb-3">
                     <Link to={`/edit/${quiz.id}`}>
                       <Button variant="outline" size="sm" className="w-full">
                         <Edit className="mr-1 h-4 w-4" />
