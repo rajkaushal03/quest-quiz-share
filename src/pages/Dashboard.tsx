@@ -4,7 +4,8 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Plus, Eye, BarChart3, Share, Edit } from 'lucide-react';
+import { Plus, Eye, BarChart3, Share, Edit, X, Trash2 } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Link, Navigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { User } from '@supabase/supabase-js';
@@ -25,6 +26,8 @@ const Dashboard = () => {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  const [pendingDelete, setPendingDelete] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     // Get initial session
@@ -92,6 +95,25 @@ const Dashboard = () => {
     });
   };
 
+  const handleDeleteQuiz = async (quizId: string) => {
+    setDeleting(true);
+    try {
+      const { error } = await supabase.from('quizzes').delete().eq('id', quizId);
+      if (error) throw error;
+      setQuizzes((prev) => prev.filter((q) => q.id !== quizId));
+      toast({ title: 'Quiz deleted', description: 'The quiz and its related data have been deleted.' });
+    } catch (error: any) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: error.message,
+      });
+    } finally {
+      setDeleting(false);
+      setPendingDelete(null);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar user={user} onAuthClick={() => {}} />
@@ -128,7 +150,14 @@ const Dashboard = () => {
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
             {quizzes.map((quiz) => (
-              <Card key={quiz.id} className='w-full border-2 border-black '>
+              <Card key={quiz.id} className='w-full border-2 border-black shadow-lg shadow-black relative'>
+                <button
+                  className="absolute top-2 right-2 p-1 rounded-full text-red-500  transition-colors duration-200 z-10"
+                  title="Delete Quiz"
+                  onClick={() => setPendingDelete(quiz.id)}
+                >
+                  <Trash2 className="h-5 w-5" />
+                </button>
                 <CardHeader>
                   <CardTitle className="line-clamp-2">{quiz.title}</CardTitle>
                   <CardDescription className="line-clamp-3">
@@ -174,6 +203,36 @@ const Dashboard = () => {
           </div>
         )}
       </main>
+
+      <div className={pendingDelete ? 'blur-sm pointer-events-none select-none' : ''}>
+        {/* Dashboard content here */}
+      </div>
+      <Dialog open={!!pendingDelete} onOpenChange={(open) => { if (!open) setPendingDelete(null); }}>
+        <DialogContent className="max-w-sm mx-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-red-600">
+              <Trash2 className="h-5 w-5" /> Delete Quiz?
+            </DialogTitle>
+          </DialogHeader>
+          <p>Are you sure you want to delete this quiz and all its related data?</p>
+          <DialogFooter className="flex gap-2 justify-end">
+            <Button
+              variant="destructive"
+              disabled={deleting}
+              onClick={() => handleDeleteQuiz(pendingDelete!)}
+            >
+              Yes, Delete
+            </Button>
+            <Button
+              variant="outline"
+              disabled={deleting}
+              onClick={() => setPendingDelete(null)}
+            >
+              No
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
