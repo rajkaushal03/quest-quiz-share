@@ -1,7 +1,8 @@
+
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Plus, Eye, BarChart3, Share } from 'lucide-react';
+import { Plus, Eye, BarChart3, Share, Edit } from 'lucide-react';
 import { Link, Navigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { User } from '@supabase/supabase-js';
@@ -134,6 +135,12 @@ const Dashboard = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="flex gap-2 flex-wrap">
+                    <Link to={`/edit/${quiz.id}`}>
+                      <Button variant="outline" size="sm">
+                        <Edit className="mr-1 h-4 w-4" />
+                        Edit
+                      </Button>
+                    </Link>
                     <Link to={`/quiz/${quiz.id}`}>
                       <Button variant="outline" size="sm">
                         <Eye className="mr-1 h-4 w-4" />
