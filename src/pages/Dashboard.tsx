@@ -150,7 +150,7 @@ const Dashboard = () => {
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
             {quizzes.map((quiz) => (
-              <Card key={quiz.id} className='w-full border-2 border-black shadow-lg shadow-black relative'>
+              <Card key={quiz.id} className='w-full border-2 border-black relative'>
                 <button
                   className="absolute top-2 right-2 p-1 rounded-full text-red-500  transition-colors duration-200 z-10"
                   title="Delete Quiz"
