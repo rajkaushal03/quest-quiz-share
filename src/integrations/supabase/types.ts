@@ -1,3 +1,4 @@
+// Recursive type for JSON values, used in Supabase
 export type Json =
   | string
   | number
@@ -6,6 +7,7 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
+// Main Supabase database schema type for type safety
 export type Database = {
   public: {
     Tables: {
@@ -132,8 +134,10 @@ export type Database = {
   }
 }
 
+// Helper type to extract the default schema (public)
 type DefaultSchema = Database[Extract<keyof Database, "public">]
 
+// Utility types for table rows, inserts, updates, enums, and composite types
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
     | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
@@ -237,6 +241,7 @@ export type CompositeTypes<
     ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
 
+// Exported constant for enums, currently empty
 export const Constants = {
   public: {
     Enums: {},
